@@ -8,10 +8,10 @@ import Settings from './Settings';
 import SavedMovies from './SavedMovies';
 import RatedMovies from './RatedMovies';
 
-const Router = () => {
+const Router = ({setToken}) => {
   return(
     <div>
-      <Route path="/login" component={Login} />
+      <Route path="/login" component={() => <Login setToken={setToken} />} />
       <Route path="/register" component={Register} />
       <Route path="/setup" component={Setup} />
       <Route path="/reel" component={Reel} />

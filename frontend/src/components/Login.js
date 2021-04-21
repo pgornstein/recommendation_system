@@ -49,7 +49,7 @@ const useStateWithSessionStorage = (key) => {
   return [data, setData]
 }
 
-export default function Login() {
+export default function Login({setToken}) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -57,7 +57,7 @@ export default function Login() {
   const [requestSuccess, setRequestSuccess] = useState(true);
   const [loginError, setLoginError] = useState(false);
 
-  const [token, setToken] = useStateWithSessionStorage('token')
+  let token = sessionStorage.getItem("token") || "";
   const history = useHistory()
 
   useEffect(() => {
@@ -100,7 +100,8 @@ export default function Login() {
       else {
         console.log(response.token)
         setLoginError(false);
-        sessionStorage.setItem("token", response.token)
+        sessionStorage.setItem("token", response.token);
+        setToken(response.token);
         history.push("/setup");
       }
     }

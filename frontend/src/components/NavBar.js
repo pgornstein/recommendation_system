@@ -15,16 +15,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const NavBar = () => {
+const NavBar = ({token, setToken}) => {
 
-  const [token, setToken] = useState(sessionStorage.getItem("token") || "");
-
-  useEffect( () => {
-    setToken(sessionStorage.getItem("token") || "");
-    console.log(token)
-  }, [token])
-
-  console.log("Token", token)
+  const refreshToken = () => {
+    sessionStorage.setItem("token", "");
+    setToken("");
+  }
 
   return (
     <nav style={{textAlign: "center"}}>
@@ -34,6 +30,8 @@ const NavBar = () => {
       {token && (<Button color="inherit" component={Link} to={'/reel'}>Reel</Button>)}
       {token && (<Button color="inherit" component={Link} to={'/saved'}>Saved Movies</Button>)}
       {token && (<Button color="inherit" component={Link} to={'rated'}>Rated Movies</Button>)}
+      {token && (<Button color="inherit"component={Link}to={'/login'}
+      onClick={e => refreshToken()}>Logout</Button>)}
     </nav>
   )
 }
